@@ -1,0 +1,8 @@
+<!-- views/register.ejs - 회원가입 폼 (SQL Injection 테스트용 평문 저장) -->
+<h1>회원가입</h1>
+<form action="/register" method="POST">
+  <input type="text" name="username" placeholder="아이디" required /><br>
+  <input type="password" name="password" placeholder="비밀번호" required /><br>
+  <button type="submit">가입하기</button>
+</form>
+<a href="/login">로그인하기</a>

@@ -1,0 +1,45 @@
+<!-- views/main.ejs -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>웹 취약점 실습 메인 페이지</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f7f7f7;
+    }
+    h1 {
+      color: #444;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 300px;
+    }
+    a {
+      padding: 10px 15px;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    a:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔐 웹 취약점 실습 메인 페이지</h1>
+  <div class="menu">
+    <a href="/register">회원가입</a>
+    <a href="/login">로그인</a>
+    <a href="/board">게시판 (Stored XSS)</a>
+    <a href="/upload">파일 업로드 (Webshell)</a>
+  </div>
+</body>
+</html>

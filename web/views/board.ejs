@@ -1,0 +1,21 @@
+<!-- views/board.ejs - 게시판 (Stored XSS 실습용) -->
+<h1>게시판</h1>
+<form method="POST" action="/board">
+  <input name="title" placeholder="제목" required /><br>
+  <textarea name="content" placeholder="내용" required></textarea><br>
+  <button type="submit">작성</button>
+</form>
+<hr />
+<!-- 게시글 목록 출력: posts 배열에 저장된 각 게시글을 반복하여 출력 -->
+<ul>
+    <% posts.forEach(post => { %>
+      <li>
+        <strong><%= post.title %></strong><br />
+        <%= post.content %><br />
+        <small><%= post.createdAt %></small><br />
+        <a href="/board/delete/<%= post.id %>" onclick="return confirm('정말 삭제할까요?')">🗑 삭제</a>
+      </li>
+      <hr />
+    <% }) %>
+  </ul>
+  
