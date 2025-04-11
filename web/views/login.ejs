@@ -1,8 +1,94 @@
-<!-- views/login.ejs - 로그인 폼 (SQLi 취약점 테스트 가능) -->
-<h1>로그인</h1>
-<form action="/login" method="POST">
-  <input type="text" name="username" placeholder="아이디" required /><br>
-  <input type="password" name="password" placeholder="비밀번호" required /><br>
-  <button type="submit">로그인</button>
-</form>
-<a href="/register">회원가입하기</a>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #000;
+      color: #0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      position: relative;
+    }
+    .top-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+    .top-button a {
+      color: #0f0;
+      text-decoration: none;
+      font-size: 24px;
+    }
+    .top-button a:hover {
+      color: #fff;
+    }
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 300px;
+    }
+    input {
+      padding: 10px 15px;
+      background: #000;
+      color: #0f0;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      outline: none;
+    }
+    button {
+      padding: 10px 15px;
+      background: #000;
+      color: #0f0;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #111;
+    }
+    a.bottom-link {
+      margin-top: 20px;
+      display: inline-block;
+      color: #0f0;
+      text-decoration: none;
+      border: 1px solid #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    a.bottom-link:hover {
+      background: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-button">
+    <a href="/">🏠</a>
+  </div>
+
+  <h1>로그인</h1>
+
+  <form action="/login" method="POST">
+    <input type="text" name="userid" placeholder="아이디" required />
+    <input type="password" name="password" placeholder="비밀번호" required />
+    <button type="submit">로그인</button>
+  </form>
+
+  <a href="/register" class="bottom-link">회원가입하기</a>
+</body>
+</html>

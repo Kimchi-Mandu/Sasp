@@ -4,23 +4,43 @@ import express from 'express';
 export default function makeRegisterRouter(db) {
   const router = express.Router();
 
-  // 회원가입 페이지 렌더링 (GET /register)
   router.get('/', (req, res) => {
-    res.render('register'); // views/register.ejs 렌더링
+    res.render('register');
   });
 
-  // 회원가입 처리 (POST /register)
   router.post('/', async (req, res) => {
-    const { username, password } = req.body; // 입력받은 값 추출
+    const { userid, password, passwordConfirm, email, phone } = req.body;
 
-    // users 테이블에 새 사용자 추가 (비밀번호 평문 저장 - 실습용)
-    await db.query(
-      'INSERT INTO users (username, password) VALUES (?, ?)',
-      [username, password]
-    );
+    try {
+      // 비밀번호 확인 체크
+      if (password !== passwordConfirm) {
+        return res.send(`<script>alert('비밀번호가 일치하지 않습니다.'); window.history.back();</script>`);
+      }
 
-    res.redirect('/login'); // 회원가입 후 로그인 페이지로 이동
+      const [rows] = await db.query('SELECT * FROM user WHERE userid = ? OR email = ?', [userid, email]);
+
+      if (rows.length > 0) {
+        const user = rows[0];
+        if (user.userid === userid) {
+          return res.send(`<script>alert('중복 ID 입니다.'); window.history.back();</script>`);
+        }
+        if (user.email === email) {
+          return res.send(`<script>alert('중복 Email 입니다.'); window.history.back();</script>`);
+        }
+      }
+
+      await db.query(
+        'INSERT INTO user (userid, password, email, phone) VALUES (?, ?, ?, ?)',
+        [userid, password, email, phone]
+      );
+
+      res.send(`<script>alert('회원가입이 완료되었습니다. 로그인 해주세요.'); window.location.href='/login';</script>`);
+
+    } catch (err) {
+      console.error('회원가입 에러:', err);
+      res.status(500).send('회원가입 중 오류 발생');
+    }
   });
 
-  return router; // app.js에 등록할 라우터 반환
+  return router;
 }

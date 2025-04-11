@@ -17,6 +17,7 @@ import makeRegisterRouter from './routes/register.js';
 import makeBoardRouter from './routes/board.js';
 import makeProfileRouter from './routes/profile.js';
 import makeUploadRouter from './routes/upload.js';
+import makeLogoutRouter from './routes/logout.js';
 
 // __filename, __dirname 설정 (ESM 환경에서 직접 생성 필요)
 const __filename = fileURLToPath(import.meta.url);
@@ -57,6 +58,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // 라우터 등록
 app.use('/login', makeLoginRouter(db))  // 로그인
+app.use('/logout', makeLogoutRouter()); // 로그아웃
 app.use('/register', makeRegisterRouter(db))  // 회원가입
 app.use('/board', makeBoardRouter(db)); // 게시판 (XSS)
 app.use('/profile', makeProfileRouter(db)); // 프로필 (IDOR)
@@ -64,7 +66,7 @@ app.use('/upload', makeUploadRouter(db));   // 파일 업로드 (Webshell)
 
 // 메인 페이지 라우팅 추가 (여기 넣기!)
 app.get('/', (req, res) => {
-    res.render('main');
+    res.render('main', { user: req.session.user }); 
   });
 
 // ───────────────────────────────

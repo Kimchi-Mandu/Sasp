@@ -1,8 +1,98 @@
-<!-- views/register.ejs - 회원가입 폼 (SQL Injection 테스트용 평문 저장) -->
-<h1>회원가입</h1>
-<form action="/register" method="POST">
-  <input type="text" name="username" placeholder="아이디" required /><br>
-  <input type="password" name="password" placeholder="비밀번호" required /><br>
-  <button type="submit">가입하기</button>
-</form>
-<a href="/login">로그인하기</a>
+<!-- views/register.ejs -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #000;
+      color: #0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      position: relative;
+    }
+    .top-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+    .top-button a {
+      color: #0f0;
+      text-decoration: none;
+      font-size: 24px; /* 아이콘만 크기 좀 키워줌 */
+    }
+    .top-button a:hover {
+      color: #fff; /* 마우스 올리면 하얀색으로 변하게 */
+    }
+    h1 {
+      color: #0f0;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 300px;
+    }
+    input {
+      padding: 10px 15px;
+      background: #000;
+      color: #0f0;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      outline: none;
+    }
+    button {
+      padding: 10px 15px;
+      background: #000;
+      color: #0f0;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    button:hover {
+      background: #111;
+    }
+    a.bottom-link {
+      margin-top: 20px;
+      display: inline-block;
+      color: #0f0;
+      text-decoration: none;
+      border: 1px solid #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+    a.bottom-link:hover {
+      background: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-button">
+    <a href="/">🏠</a>
+  </div>
+
+  <h1>회원가입</h1>
+  <form action="/register" method="POST">
+    <input type="text" name="userid" placeholder="ID" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <input type="password" name="passwordConfirm" placeholder="Password Confirm" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="text" name="phone" placeholder="Tel" required />
+    <button type="submit">Register</button>
+  </form>
+  
+  <a href="/login" class="bottom-link">Login</a>
+</body>
+</html>

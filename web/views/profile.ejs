@@ -1,7 +1,113 @@
-<!-- views/profile.ejs - 사용자 프로필 페이지 (IDOR 실습 가능) -->
-<h1>사용자 프로필</h1>
-<p><strong>아이디:</strong> <%= user.username %></p>
-<p><strong>권한:</strong> <%= user.role %></p>
-<a href="/board">게시판 가기</a> | <a href="/upload">파일 업로드</a>
-<br/>
-<a href="/">홈으로 돌아가기</a>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>사용자 프로필</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #000;
+      color: #0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      position: relative;
+    }
+    .top-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+    .top-button a {
+      color: #0f0;
+      text-decoration: none;
+      font-size: 24px;
+    }
+    .top-button a:hover {
+      color: #fff;
+    }
+    h1 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    p {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 30px;
+      width: 100%;
+      max-width: 300px;
+    }
+    .menu a {
+      padding: 10px 15px;
+      background: #000;
+      color: #0f0;
+      text-decoration: none;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      text-align: center;
+      transition: background 0.3s, color 0.3s;
+    }
+    .menu a:hover {
+      background: #111;
+      color: #0f0;
+    }
+    table {
+      width: 100%;
+      max-width: 800px;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-button">
+    <a href="/">🏠</a>
+  </div>
+
+  <h1>관리자 페이지</h1>
+
+
+
+ <!-- 사용자 목록 테이블 -->
+ <table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>userid</th>
+      <th>password</th>
+      <th>email</th>
+      <th>phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.forEach(post => { %>
+      <tr>
+        <td><%= post.id %></td>
+        <td><%= post.userid %></td>
+        <td><%= post.password %></td>
+        <td><%= post.email %></td>
+        <td><%= post.phone %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+</body>
+</html>
+

@@ -1,38 +1,59 @@
-// routes/board.js - 게시판 기능 구현 (Stored XSS 실습용)
-
-// express 모듈 불러오기
 import express from 'express';
 
-// app.js에서 db 객체를 전달받아 라우터 생성
 export default function makeBoardRouter(db) {
-  const router = express.Router(); // 라우터 객체 생성
+  const router = express.Router();
 
-  // 게시판 글 목록 조회 (GET /board)
-  // 모든 게시글을 작성 시간 역순으로 가져와 board.ejs에 전달
   router.get('/', async (req, res) => {
-    const [posts] = await db.query('SELECT * FROM posts ORDER BY createdAt DESC');
-    res.render('board', { posts }); // 게시글 목록 렌더링
+    try {
+      const [board] = await db.query('SELECT id, author, title, created_at FROM board ORDER BY created_at DESC');
+      res.render('board', { board, user: req.session.user });
+    } catch (err) {
+      console.error('게시판 조회 에러:', err);
+      res.status(500).send('게시판 조회 중 오류 발생');
+    }
   });
 
-  // 게시글 작성 처리 (POST /board)
-  // 사용자로부터 제목과 내용을 입력받아 posts 테이블에 저장
-  // ※ content에는 <script> 태그 등도 필터링 없이 저장됨 → Stored XSS 실습 가능
   router.post('/', async (req, res) => {
-    const { title, content } = req.body; // 폼 데이터 추출
+    if (!req.session.user) {
+      return res.send(`<script>alert('로그인이 필요합니다.'); window.location.href='/login';</script>`);
+    }
 
-    // DB에 게시글 삽입
-    await db.query('INSERT INTO posts (title, content) VALUES (?, ?)', [title, content]);
+    const { title, content } = req.body;
+    const author = req.session.user.userid;
 
-    // 글 작성 후 게시판 목록으로 리디렉션
-    res.redirect('/board');
+    try {
+      await db.query(
+        'INSERT INTO board (author, title, content, created_at) VALUES (?, ?, ?, NOW())',
+        [author, title, content]
+      );
+      res.redirect('/board');
+    } catch (err) {
+      console.error('게시글 작성 에러:', err);
+      res.status(500).send('게시글 작성 중 오류 발생');
+    }
   });
 
   router.get('/delete/:id', async (req, res) => {
-    const { id } = req.params;
-    await db.query('DELETE FROM posts WHERE id = ?', [id]);
-    res.redirect('/board');
+    const { id } = req.params
+
+
+    try {
+      // 삭제하려는 글의 작성자 조회
+      const [rows] = await db.query('SELECT author FROM board WHERE id = ?', [id]);
+      const findAuthor = rows[0];
+  
+      if (findAuthor.author !== req.session.user.userid) {
+        return res.send(`<script>alert('본인의 글만 삭제할 수 있습니다.'); window.location.href='/board';</script>`);
+      }
+  
+      // 삭제 수행
+      await db.query('DELETE FROM board WHERE id = ?', [id]);
+      res.redirect('/board');
+    } catch (err) {
+      console.error('게시글 삭제 에러:', err);
+      res.status(500).send('게시글 삭제 중 오류 발생');
+    }
   });
 
-  // 라우터 반환
   return router;
-}
+} 
