@@ -119,7 +119,9 @@
       <% board.forEach(post => { %>
         <tr>
           <td><%= post.author %></td>
-          <td><%= post.title %></td>
+          <td>
+            <a href="/board/<%= post.id %>"><%= post.title %></a>
+          </td>
           <td><%= post.created_at.toLocaleString() %></td>
           <td>
             <% if (user && user.userid === post.author) { %>

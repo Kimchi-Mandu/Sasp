@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 상세 보기</title>
+</head>
+<body style="background:black; color:lime; font-family:sans-serif; padding:40px;">
+  <a href="/board" style="color:lime;">← 게시판 목록</a>
+  <h1><%= post.title %></h1>
+  <p><strong>작성자:</strong> <%= post.author %></p>
+  <p><strong>작성 시간:</strong> <%= post.created_at.toLocaleString() %></p>
+  <hr>
+  <p><%- post.content %></p>
+  <p><%= post.content %></p>
+</body>
+</html>
