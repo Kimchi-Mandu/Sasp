@@ -124,7 +124,7 @@
           </td>
           <td><%= post.created_at.toLocaleString() %></td>
           <td>
-            <% if (user && user.userid === post.author) { %>
+            <% if (user.userid === post.author || user.userid === 'admin') { %>
               <a class="delete-link" href="/board/delete/<%= post.id %>" onclick="return confirm('정말 삭제할까요?')">🗑</a>
             <% } %>
           </td>          

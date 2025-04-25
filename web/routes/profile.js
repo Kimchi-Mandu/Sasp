@@ -12,12 +12,13 @@ export default function makeProfileRouter(db) {
     }
 
     try {
-      const user = await db.query('SELECT * FROM user WHERE id = ?', [id]);
+      const [rows] = await db.query('SELECT * FROM user WHERE id = ?', [id]);
       const [users] = await db.query('SELECT * FROM user');
+      const user = rows[0];
+
       if (!user) {
         return res.status(404).send('사용자를 찾을 수 없습니다.');
       }
-
 
       res.render('profile', { user,users });
       

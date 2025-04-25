@@ -4,7 +4,7 @@ import mysql from 'mysql2/promise';
 
 // MySQL 연결 설정 (Docker로 띄운 MySQL에 맞게 수정)
 const db = mysql.createPool({
-  host: '192.168.0.14',         // 또는 Docker VM IP (예: 172.17.0.2)
+  host: '192.168.0.51',         // 또는 Docker VM IP (예: 172.17.0.2)
   port: 3306,                // MySQL 기본 포트
   user: 'root',             // MySQL 사용자명
   password: 'sasp1234', // MySQL 비밀번호
@@ -44,3 +44,5 @@ CREATE TABLE IF NOT EXISTS board (
   conn.release();
   return db;
 }
+
+

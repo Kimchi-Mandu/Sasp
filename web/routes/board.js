@@ -62,13 +62,20 @@ export default function makeBoardRouter(db) {
       const [rows] = await db.query('SELECT author FROM board WHERE id = ?', [id]);
       const findAuthor = rows[0];
 
-      if (findAuthor.author !== req.session.user.userid) {
+      const sessionUser = req.session.user;
+
+      if (!sessionUser) {
+        return res.send(`<script>alert('로그인이 필요합니다.'); window.location.href='/login';</script>`);
+      }
+
+      if (sessionUser.userid !== 'admin' && findAuthor.author !== req.session.user.userid) {
         return res.send(`<script>alert('본인의 글만 삭제할 수 있습니다.'); window.location.href='/board';</script>`);
       }
 
       // 삭제 수행
       await db.query('DELETE FROM board WHERE id = ?', [id]);
       res.redirect('/board');
+      
     } catch (err) {
       console.error('게시글 삭제 에러:', err);
       res.status(500).send('게시글 삭제 중 오류 발생');

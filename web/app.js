@@ -39,7 +39,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: 'secret',            // 세션 암호화 키
   resave: false,                  // 요청마다 세션 재저장 여부
-  saveUninitialized: true        // 비어있는 세션도 저장 여부
+  saveUninitialized: true,       // 비어있는 세션도 저장 여부
+  cookie: {
+    httpOnly: false //
+  }
 }));
 
 // ───────────────────────────────
