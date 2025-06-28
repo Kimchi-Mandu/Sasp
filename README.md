@@ -3,9 +3,8 @@
 
 # 아키텍처
 
-![아키텍처2.drawio.png](attachment:ff500364-6216-4dcf-bb6f-a64bf2961b5e:아키텍처2.drawio.png)
 
-
+![아키텍처2 drawio](https://github.com/user-attachments/assets/d7662a6b-3742-4be5-bcd1-4f4b06cdece0)
 
 
 # 공격 시나리오
