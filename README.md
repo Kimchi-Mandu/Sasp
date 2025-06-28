@@ -1,10 +1,16 @@
 # Sasp 취약점 실습 및 보안 프로젝트
 
 
+
+
+
 # 아키텍처
 
 
 ![아키텍처2 drawio](https://github.com/user-attachments/assets/d7662a6b-3742-4be5-bcd1-4f4b06cdece0)
+
+
+
 
 
 # 공격 시나리오
@@ -108,6 +114,7 @@ URL에 사용자 ID가 직접 노출되고 있으며, 인증/인가 검증 없�
 
 
 
+![image](https://github.com/user-attachments/assets/c4929292-5d34-496a-84d0-656059ae4519)
 
 
 
