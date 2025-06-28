@@ -1,19 +1,14 @@
 # Sasp 취약점 실습 및 보안 프로젝트
 
-
-
-
+<br><br>
 
 # 아키텍처
-
-
 ![아키텍처2 drawio](https://github.com/user-attachments/assets/d7662a6b-3742-4be5-bcd1-4f4b06cdece0)
 
-
-
-
+<br><br>
 
 # 공격 시나리오
+<br>
 
 ## 1. Initial Access (초기 접근)
 
@@ -111,11 +106,29 @@ URL에 사용자 ID가 직접 노출되고 있으며, 인증/인가 검증 없�
 > 공격자는 Brute-force를 통한 초기 접근을 시작으로, IDOR로 정보를 수집하고, Stored XSS로 세션을 탈취한 뒤, 세션 하이재킹으로 관리자 권한을 획득하였다. 이후 SQL Injection/NoSQL Injection을 통해 데이터베이스를 장악하고, 웹쉘 업로드 및 백도어 설치로 서버에 대한 지속적인 접근 권한을 확보했다.
 >
 
+<br><br>
 
+# 공격 테스트
 
+<br>
+
+## SQL Injection
 
 ![image](https://github.com/user-attachments/assets/c4929292-5d34-496a-84d0-656059ae4519)
+<br>
 
+## IDOR
 
+![image](https://github.com/user-attachments/assets/4c9d22a6-68b5-4d1b-b2e1-8ed7d47e9678)
+<br>
 
+## Brute-Force Attack
+
+![image](https://github.com/user-attachments/assets/8776f932-2752-4d71-916e-85cd7bf34b1d)
+<br>
+
+## XSS Stored
+
+![image](https://github.com/user-attachments/assets/ed47d1c0-015b-47c1-bd71-d7cb7827dc73)
+<br>
 
